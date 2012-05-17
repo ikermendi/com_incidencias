@@ -1,2 +1,3 @@
 Para probarlo:
-index.php?option=com_incidencias
+- Copiar carpeta com_incidencias dentro de la carpeta components 
+- index.php?option=com_incidencias
