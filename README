@@ -1,3 +1,4 @@
 Para probarlo:
-- Copiar carpeta com_incidencias dentro de la carpeta components 
+- Crear carpeta 'com_incidencias' y copiar los ficheros del repositorio.
+- Copiar la carpeta 'com_incidencias' en la carpeta components de Joomla.
 - index.php?option=com_incidencias
