@@ -1,0 +1,34 @@
+.incidencias h1{
+	font-weight:bold;
+	
+}
+
+.incidencias  {
+	display: block;
+}
+
+.incidencia{
+	width:70%;
+	background:#cccccc;
+	margin:10px 30px 15px 10px;
+	border:solid 2px #ccc;
+	border-radius: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.incidencia .estilo_columna {
+	padding-right: 0px;
+	width:65%;
+
+}
+.incidencia .verde{
+	color:#006400;
+	font-weight:bold;
+	
+}
+.incidencia .rojo{
+	color:#ff0000;
+	font-weight:bold;
+	
+}
+
