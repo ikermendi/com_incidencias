@@ -10,23 +10,8 @@ class IncidenciasViewMapa extends JView
 {
 	function display($tpl = null) 
 	{
-		/*$uid = JFactory::getUser()->id;
-		$model =& $this->getModel();
-		$this->mensajes = $model->getMensajes($uid);
-		$this->comentarios = array();
-                $this->uid_sin = $uid;
-		if (empty($this->mensajes))
-		{
-			$this->mensajes = null;	
-		} else {
-			$count = count($this->mensajes);
-			for ($i=0; $i < $count ; $i++) {
-				$id_msg = $this->mensajes[$i]->msg_id;
-				$this->comentarios[$id_msg] = $model->getComentarios($id_msg);
-			}
-		}*/
-		$this->prueba = "Prueba";
-		$this->content = "var neighborhoods = [
+		
+		/*$this->content = "var neighborhoods = [
 		    new google.maps.LatLng(52.511467, 13.447179),
 		    new google.maps.LatLng(52.549061, 13.422975),
 		    new google.maps.LatLng(52.497622, 13.396110),
@@ -34,8 +19,42 @@ class IncidenciasViewMapa extends JView
 		  ];
 			var contentString = ['lulu', 'lala', 'lolo', 'lili'];
 
-			setData(neighborhoods, contentString);";
+			setData(neighborhoods, contentString);";*/
 			
+		$uid = JFactory::getUser()->id;
+		$model =& $this->getModel();
+		$this->localidades = $model->getLocalidades($uid);
+		$this->dispositivos = $model->getEstadoDispositivos($uid, $this->localidades);
+		
+		$this->content = "var neighborhoods = [";
+		$size = count($this->dispositivos);
+		$addtext = '';
+		
+		for ($i=0; $i < $size ; $i++) { 
+			$text = '';
+			$dispositivo = $this->dispositivos[$i];
+			$text = "new google.maps.LatLng($dispositivo->latitud, $dispositivo->longitud)";
+			if($i+1 != $size)
+				echo ", ";
+			$addtext = $addtext . $text;
+		}
+		
+		$this->content = $this->content . $addtext . "];";
+		$this->content = $this->content . "var contentString = [";
+		$addtext = '';
+
+		for ($i=0; $i < $size ; $i++) { 
+			$text = '';
+			$dispositivo = $this->dispositivos[$i];
+			$text = "'$dispositivo->idestadoDisp'";
+			if($i+1 != $size)
+				echo ", ";
+			$addtext = $addtext . $text;
+		}
+		
+		$this->content = $this->content . $addtext . "];";
+		$this->content = $this->content . "setData(neighborhoods, contentString);";
+		
 		parent::display($tpl);
 	}
 }

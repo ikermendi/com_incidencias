@@ -1,9 +1,10 @@
-  var berlin = new google.maps.LatLng(52.520816, 13.410186);
-  var markers = [];
-  var iterator = 0;
- var neighborhoods = [];
+var berlin = new google.maps.LatLng(52.520816, 13.410186);
+var markers = [];
+var iterator = 0;
+var neighborhoods = [];
 var contentString = [];
-
+var iconBien = new google.maps.MarkerImage("http://www.mricons.com/store/png/124252_43257_128_location_marker_monotone_pin_icon.png");
+var iconMap = new google.maps.MarkerImage("http://domain/path/image.png");
 
   var map;
 
@@ -40,6 +41,7 @@ var contentString = [];
 	var marker = new google.maps.Marker({
       position: neighborhoods[iterator],
       map: map,
+	  icon: iconBien,
       draggable: false,
       animation: google.maps.Animation.DROP
     });
