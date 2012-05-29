@@ -7,7 +7,7 @@ jimport('joomla.application.component.model');
 
 class IncidenciasModelMapa extends JModel
 {
-	public function getEstadoDispositivos($uid, $localidades)
+	public function getDispositivos($uid, $localidades)
 	{
 		$db =& JFactory::getDBO();
 		$text = '';
