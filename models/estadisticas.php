@@ -7,6 +7,44 @@ jimport('joomla.application.component.model');
 
 class IncidenciasModelEstadisticas extends JModel
 {
-
+		
+	public function getCiudad($uid)
+		{
+			$db =& JFactory::getDBO();
+			$query = "select c.idciudad, c.ciudad from ciudad c inner join sede s on s.idciudad = c.idciudad inner join empleado e on s.idsede = e.idsede where e.idempleado = ". $uid;
+			$db->setQuery((string)$query);
+			$localidades = $db->loadObjectList();
+			return $localidades;
+		}
+		
+	public function getPasosXLocalidad($idciudad)
+	{
+		$db =& JFactory::getDBO();
+		$query = "select c.ciudad, l.localidad, sum(e.numPasos) AS 'cantidad'  
+					from estadistica e, dispositivo d, localidad l, ciudad c
+					where e.iddispositivo = d.iddispositivo
+					and l.idlocalidad = d.idlocalidad
+					and '$idciudad' = l.idciudad
+					group by l.idlocalidad";
+		$db->setQuery((string)$query);
+		$numPasos = $db->loadObjectList();
+		return $numPasos;
+	}
+	
+	public function getPasosXLocalidadXDia($idciudad)
+	{
+		$db =& JFactory::getDBO();
+		$query ="select c.ciudad, l.localidad, sum(e.numPasos), e.fecha
+				from estadistica e, dispositivo d, localidad l, ciudad c
+				where e.iddispositivo = d.iddispositivo
+				and l.idlocalidad = d.idlocalidad
+				and l.idciudad='$idciudad'
+				and date(e.fecha) <= current_date
+				and date(e.fecha)>=date(CONCAT (year(current_date),'-', month(current_date)-1,'-',day(current_date)))
+				group by  e.fecha, d.idlocalidad";
+		$db->setQuery((string)$query);
+		$pasosDia = $db->loadObjectList();
+		return $pasosDia;
+	}
 
 }

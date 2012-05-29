@@ -17,6 +17,8 @@ $document->addScriptDeclaration($this->content);
 $document->addStyleDeclaration("html { height: 100% } body { height: 100%; margin: 0px; padding: 0px } #map_canvas { height: 100% }");
 $document->addScriptDeclaration($js);*/
 
-echo $this->code;
-echo $this->div;
 ?>
+<script type="text/javascript"> <?php echo $this->content; ?></script>
+<?php echo $this->div?>
+
+

@@ -24,7 +24,6 @@ class IncidenciasViewMapa extends JView
 		$uid = JFactory::getUser()->id;
 		$model =& $this->getModel();
 		$this->localidades = $model->getLocalidades($uid);
-		$this->dispositivos = $model->getEstadoDispositivos($uid, $this->localidades);
 		
 		$this->content = "var neighborhoods = [";
 		$size = count($this->dispositivos);
