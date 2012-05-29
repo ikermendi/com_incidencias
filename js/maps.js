@@ -1,10 +1,11 @@
-var berlin = new google.maps.LatLng(52.520816, 13.410186);
+var bounds = new google.maps.LatLngBounds();
 var markers = [];
 var iterator = 0;
 var neighborhoods = [];
 var contentString = [];
-var iconBien = new google.maps.MarkerImage("http://www.mricons.com/store/png/124252_43257_128_location_marker_monotone_pin_icon.png");
-var iconMap = new google.maps.MarkerImage("http://domain/path/image.png");
+var estado = [];
+var iconBien = new google.maps.MarkerImage("components/com_incidencias/images/marker_ok.png");
+var iconMal = new google.maps.MarkerImage("components/com_incidencias/images/marker_ko.png");
 
   var map;
 
@@ -12,16 +13,16 @@ var iconMap = new google.maps.MarkerImage("http://domain/path/image.png");
     var mapOptions = {
       zoom: 12,
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      center: berlin
     };
 
     map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
   }
 
-  function setData(nei, content) {
+  function setData(nei, content, esta, center) {
 	neighborhoods = nei;
 	contentString = content;
+	estado = esta;
   }
 
   function drop() {
@@ -38,13 +39,28 @@ var iconMap = new google.maps.MarkerImage("http://domain/path/image.png");
 	    content: contentString[iterator]
 	});
 	
-	var marker = new google.maps.Marker({
-      position: neighborhoods[iterator],
-      map: map,
-	  icon: iconBien,
-      draggable: false,
-      animation: google.maps.Animation.DROP
+	var marker;
+	
+	if(estado[iterator] == 1) {
+		marker = new google.maps.Marker({
+      		position: neighborhoods[iterator],
+      		map: map,
+	  		icon: iconBien,
+      		draggable: false,
+      		animation: google.maps.Animation.DROP
     });
+	} else {
+		marker = new google.maps.Marker({
+	    	position: neighborhoods[iterator],
+	    	map: map,
+			icon: iconMal,
+	    	draggable: false,
+	    	animation: google.maps.Animation.DROP
+	    });
+	}
+	
+	bounds.extend(marker.getPosition());
+	map.fitBounds(bounds);
 
 	google.maps.event.addListener(marker, 'click', function() {
 	  infowindow.open(map,marker);

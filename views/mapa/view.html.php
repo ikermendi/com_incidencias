@@ -29,13 +29,13 @@ class IncidenciasViewMapa extends JView
 		$this->content = "var neighborhoods = [";
 		$size = count($this->dispositivos);
 		$addtext = '';
-		
+	
 		for ($i=0; $i < $size ; $i++) { 
 			$text = '';
 			$dispositivo = $this->dispositivos[$i];
 			$text = "new google.maps.LatLng($dispositivo->latitud, $dispositivo->longitud)";
 			if($i+1 != $size)
-				echo ", ";
+				$text = $text . ", ";
 			$addtext = $addtext . $text;
 		}
 		
@@ -46,14 +46,28 @@ class IncidenciasViewMapa extends JView
 		for ($i=0; $i < $size ; $i++) { 
 			$text = '';
 			$dispositivo = $this->dispositivos[$i];
-			$text = "'$dispositivo->idestadoDisp'";
+			$text = "'<h3>Dispositivo: " . $dispositivo->iddispositivo . "</h3>";
+			$text = $text . "Latitud: " . $dispositivo->latitud . "<br>Longitud: " . $dispositivo->longitud . "'";
 			if($i+1 != $size)
-				echo ", ";
+				$text = $text . ", ";
 			$addtext = $addtext . $text;
 		}
 		
 		$this->content = $this->content . $addtext . "];";
-		$this->content = $this->content . "setData(neighborhoods, contentString);";
+		$this->content = $this->content . "var estado = [";
+		
+		$addtext = '';
+		for ($i=0; $i < $size ; $i++) { 
+			$text = '';
+			$dispositivo = $this->dispositivos[$i];
+			$text = $dispositivo->idestadoDisp;
+			if($i+1 != $size)
+				$text = $text . ", ";
+			$addtext = $addtext . $text;
+		}
+		
+		$this->content = $this->content . $addtext . "];";
+		$this->content = $this->content . "setData(neighborhoods, contentString, estado);";
 		
 		parent::display($tpl);
 	}

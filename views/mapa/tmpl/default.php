@@ -30,10 +30,10 @@ $document->addScriptDeclaration($js);
 			echo ", ";
 	}
 ?></h3>
-
-<?php var_dump($this->dispositivos)?>
-
+<center>
+	<br><br>
 <div id="map_canvas" style="width: 500px; height: 400px;">map div</div>
+</center>
 <!--<button id="drop" onclick="drop()">Drop Markers</button>!-->
 <script type="text/javascript">	
 	drop();
