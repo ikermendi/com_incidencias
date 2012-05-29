@@ -34,14 +34,15 @@ class IncidenciasModelEstadisticas extends JModel
 	public function getPasosXLocalidadXDia($idciudad)
 	{
 		$db =& JFactory::getDBO();
-		$query ="select c.ciudad, l.localidad, sum(e.numPasos), e.fecha
+		$query ="select c.ciudad, l.localidad, sum(e.numPasos) AS 'cantidad', e.fecha, day(e.fecha) AS 'eguna'
 				from estadistica e, dispositivo d, localidad l, ciudad c
 				where e.iddispositivo = d.iddispositivo
 				and l.idlocalidad = d.idlocalidad
 				and l.idciudad='$idciudad'
 				and date(e.fecha) <= current_date
 				and date(e.fecha)>=date(CONCAT (year(current_date),'-', month(current_date)-1,'-',day(current_date)))
-				group by  e.fecha, d.idlocalidad";
+				group by  e.fecha, d.idlocalidad
+				order by eguna";
 		$db->setQuery((string)$query);
 		$pasosDia = $db->loadObjectList();
 		return $pasosDia;

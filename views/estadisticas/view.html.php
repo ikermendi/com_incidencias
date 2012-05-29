@@ -106,23 +106,48 @@ $(document).ready(function() {
 			renderTo: 'my_graph2',
 			type: 'line',
 			marginRight: 130,
-			marginBottom: 25
+			marginBottom: 40
 		},
 		title: {
-			text: 'Monthly Average Temperature',
+			text: '"; $content = $content . $title . "', " ."
 			x: -20 //center
 		},
-		subtitle: {
-			text: 'Source: WorldClimate.com',
-			x: -20
-		},
 		xAxis: {
-			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-				'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+			title: {
+					text: 'Dias'
+				},
+			categories: ['"; 
+						$tmp = array();
+						$tmp1="";
+						$aux = "";
+						$j=1;
+						$size = sizeof($this->pasos);
+						for($i = 0; $i < $size; $i++)
+						{
+							if ($i == ($size-1)) 
+								$tmp1 = $tmp1 . "'" . $this->pasos[$i]->eguna . "' ";
+							else{
+								$aux = $this->pasos[$i]->eguna;
+								if ($i==0)
+								{
+									$tmp1 = $aux. "',";
+									$tmp[$i] = $aux;
+								}
+								else if ($aux != $tmp[$i-$j])
+								{
+									$tmp1 = $tmp1 . "'" . $this->pasos[$i]->eguna . "',";
+									$tmp[$i-$j+1] = $this->pasos[$i]->eguna;
+								}
+								else
+									$j= $j++;
+							}
+									
+						}
+						$content = $content . $tmp1 . "]
 		},
 		yAxis: {
 			title: {
-				text: 'Temperature (°C)'
+				text: 'Num pasos cebra'
 			},
 			plotLines: [{
 				value: 0,
@@ -144,19 +169,69 @@ $(document).ready(function() {
 			y: 100,
 			borderWidth: 0
 		},
-		series: [{
-			name: 'Tokyo',
-			data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-		}, {
-			name: 'New York',
-			data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-		}, {
-			name: 'Berlin',
-			data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-		}, {
-			name: 'London',
-			data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-		}]
+		series: [";
+					$tmp1 = array();
+					$tmp = "";
+					$aux="";
+					$k=1;
+					$size = sizeof($this->pasos);
+					
+					for($i = 0; $i < $size; $i++)
+					{
+						$aux = $this->pasos[$i]->localidad;
+						if ($i==0)
+						{
+							$tmp1[$i] = $aux;
+							for($j = 0; $j <$size; $j++) 
+							{	
+								if ($j==0)
+									$tmp = "{ name: '" . $aux . "', data: [" . $this->pasos[$j]->cantidad;
+								else if($aux === $this->pasos[$j]->localidad)
+									$tmp = $tmp . ", " . $this->pasos[$j]->cantidad;
+								
+								if ($j==($size-1))
+									$tmp = $tmp . "]}";	
+							}
+						}
+						else {
+							var_dump("aux: " . $aux);
+							
+							 $l=0;
+							 $in=false;
+							while($l<sizeof($tmp1))
+							{ 
+								if ($aux !== $tmp1[$l])
+								{
+									$in=true;
+									$l++;
+								}
+								else
+								{
+									$in=false;
+									$l=sizeof($tmp1);
+								}
+							}
+							if ($in===true)
+							{
+									$tmp1[sizeof($tmp1)] = $this->pasos[$i]->localidad;
+									for($j = $i; $j < $size; $j++) 
+									{	
+										if ($j==$i)
+											$tmp = $tmp . ",{ name: '" . $aux . "', data: [" . $this->pasos[$i]->cantidad;
+										else if($aux == $this->pasos[$j]->localidad)
+											$tmp = $tmp . ", " . $this->pasos[$j]->cantidad;
+										else if ($j==($size-1))
+											$tmp = $tmp . "]}";	
+									}
+									$l=sizeof($tmp1);
+									var_dump($tmp1);
+							}
+						}
+					}
+					
+				
+				
+				$content = $content . $tmp . "]
 	});
 });";
 	
