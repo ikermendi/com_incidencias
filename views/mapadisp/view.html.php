@@ -6,14 +6,13 @@ defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.view');
  
 
-class IncidenciasViewMapa extends JView
+class IncidenciasViewMapadisp extends JView
 {
 	function display($tpl = null) 
 	{
-			
+		
 		$uid = JFactory::getUser()->id;
 		$model =& $this->getModel();
-		$this->localidades = $model->getLocalidades($uid);
 		$this->dispositivos = $model->getDispositivos($uid, $this->localidades);
 		
 		$this->content = "var neighborhoods = [";
