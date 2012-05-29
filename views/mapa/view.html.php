@@ -10,16 +10,6 @@ class IncidenciasViewMapa extends JView
 {
 	function display($tpl = null) 
 	{
-		
-		/*$this->content = "var neighborhoods = [
-		    new google.maps.LatLng(52.511467, 13.447179),
-		    new google.maps.LatLng(52.549061, 13.422975),
-		    new google.maps.LatLng(52.497622, 13.396110),
-		    new google.maps.LatLng(52.517683, 13.394393)
-		  ];
-			var contentString = ['lulu', 'lala', 'lolo', 'lili'];
-
-			setData(neighborhoods, contentString);";*/
 			
 		$uid = JFactory::getUser()->id;
 		$model =& $this->getModel();
@@ -46,7 +36,7 @@ class IncidenciasViewMapa extends JView
 		for ($i=0; $i < $size ; $i++) { 
 			$text = '';
 			$dispositivo = $this->dispositivos[$i];
-			$text = "'<h3>Dispositivo: " . $dispositivo->iddispositivo . "</h3>";
+			$text = "'<h3><a href=index.php?option=com_incidencias&view=listadisp&disp=$dispositivo->iddispositivo>Dispositivo: " . $dispositivo->iddispositivo . "</a></h3>";
 			$text = $text . "Latitud: " . $dispositivo->latitud . "<br>Longitud: " . $dispositivo->longitud . "'";
 			if($i+1 != $size)
 				$text = $text . ", ";
