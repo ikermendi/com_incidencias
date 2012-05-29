@@ -8,6 +8,7 @@ $document->addStyleSheet('components/com_incidencias/css/incidencias.css');
 ?>
 <div class="incidencias">
 <h1 align="center">Lista de incidencias</h1>
+	<?php if(count($this->listaIncidencias) > 0) {?>
 	<?php foreach($this->listaIncidencias as $incidencias){?>
 		
 			<div class="incidencia">
@@ -33,5 +34,8 @@ $document->addStyleSheet('components/com_incidencias/css/incidencias.css');
 			</table>
 			</div>
 		
-	<?php } ?>
-	</div>	
+	<?php } 
+	} else {?>
+		No se han encontrado incidencias.
+	<?php }?>
+	</div>
