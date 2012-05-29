@@ -11,12 +11,16 @@ class IncidenciasModelMapa extends JModel
 	{
 		$db =& JFactory::getDBO();
 		$text = '';
+		$size = count($localidades);
 		
-		foreach ($localidades as $localidad) {
-			$text = " idlocalidad = " . $localidad->idlocalidad;
+		for ($i=0; $i < $size ; $i++) { 
+			$text = $text . " idlocalidad = " . $localidades[$i]->idlocalidad;
+			if($i+1 != $size)
+				$text = $text . " or";
 		}
-		
+			
 		$query = "select * from dispositivo where" . $text;
+
 		$db->setQuery((string)$query);
 		$dispositivos = $db->loadObjectList();
 		return $dispositivos;
