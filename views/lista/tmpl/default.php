@@ -31,6 +31,9 @@ $document->addStyleSheet('components/com_incidencias/css/incidencias.css');
 				<tr>
 					<td><b>Hora: </b></td><td class="estilo_columna"><?php echo $incidencias->hora;?></td>
 				</tr>
+				<tr>
+					<td><b>Mapa</b></td><td class="estilo_columna"><a href="index.php?option=com_incidencias&view=mapadisp&disp=<?php echo $incidencias->iddispositivo;?>">Link</a></td>
+				</tr>
 			</table>
 			</div>
 		

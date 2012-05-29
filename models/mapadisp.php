@@ -17,4 +17,15 @@ class IncidenciasModelMapadisp extends JModel
 		$dispositivos = $db->loadObjectList();
 		return $dispositivos;
 	}
+	
+	public function getDispositivo($disp)
+	{
+		$db =& JFactory::getDBO();
+			
+		$query = "select * from dispositivo where iddispositivo = $disp";
+
+		$db->setQuery((string)$query);
+		$dispositivos = $db->loadObjectList();
+		return $dispositivos;
+	}
 }

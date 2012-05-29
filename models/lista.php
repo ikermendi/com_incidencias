@@ -10,7 +10,7 @@ class IncidenciasModelLista extends JModel
 	public function getListaIncidencias($id) 
 	{
 		$db =& JFactory::getDBO();
-		$query = "SELECT estado, descripcion, fecha, hora 
+		$query = "SELECT estado, descripcion, fecha, hora, iddispositivo
 				  FROM estadoinci e, incidencia i
 				  WHERE e.idestado =i.idestadoinci AND idempleado = '$id'
 				  ORDER BY fecha AND estado ASC";
