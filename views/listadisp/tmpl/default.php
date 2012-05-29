@@ -7,7 +7,7 @@ $document->addStyleSheet('components/com_incidencias/css/incidencias.css');
 
 ?>
 <div class="incidencias">
-<h1 align="center">Lista de incidencias</h1>
+<h1 align="center">Historial de incidencias</h1>
 	<?php if(count($this->listaIncidencias) > 0) {?>
 	<?php foreach($this->listaIncidencias as $incidencias){?>
 		
@@ -16,9 +16,9 @@ $document->addStyleSheet('components/com_incidencias/css/incidencias.css');
 				<tr>
 					<td><b>Estado: </b></td>
 					<?php if ($incidencias->estado == 'abierto') {?>
-							<td class="verde">
-						<?php }	else{ ?>
 							<td class="rojo">
+						<?php }	else{ ?>
+							<td class="verde">
 					<?php }?>
 					<?php echo $incidencias->estado;?></td>
 				</tr>

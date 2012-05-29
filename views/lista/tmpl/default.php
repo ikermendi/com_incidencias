@@ -16,9 +16,9 @@ $document->addStyleSheet('components/com_incidencias/css/incidencias.css');
 				<tr>
 					<td><b>Estado: </b></td>
 					<?php if ($incidencias->estado == 'abierto') {?>
-							<td class="verde">
-						<?php }	else{ ?>
 							<td class="rojo">
+						<?php }	else{ ?>
+							<td class="verde">
 					<?php }?>
 					<?php echo $incidencias->estado;?></td>
 				</tr>
@@ -34,6 +34,11 @@ $document->addStyleSheet('components/com_incidencias/css/incidencias.css');
 				<tr>
 					<td><b>Mapa</b></td><td class="estilo_columna"><a href="index.php?option=com_incidencias&view=mapadisp&disp=<?php echo $incidencias->iddispositivo;?>">Link</a></td>
 				</tr>
+				<?php if($incidencias->estado === "abierto") {?>
+				<tr>
+				<td><b>Cerrar incidencia:</b></td><td class="estilo_columna"><a href="index.php?option=com_incidencias&view=lista&task=cerrar&id=<?php echo $incidencias->idincidencia?>&disp=<?php echo $incidencias->iddispositivo?>">Cerrar</a></td>
+				</tr>
+				<?php }?>
 			</table>
 			</div>
 		

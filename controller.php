@@ -23,10 +23,34 @@ class IncidenciasController extends JController
 		// Añadir el modelo a la vista
 		if ($model = $this->getModel($vName))
 			$view->setModel($model, true);
-		
+			
+		// A que vista queremos ir
+		switch ($vName)
+		{
+			case 'lista':
+				self::lista();
+				break;
+			default:
+				break;
+		}
+			
 		$view->display();
-		
 		return $this;
+	}
+	
+	private function lista()
+	{
+		$task = JRequest::getCmd('task', '');
+		$model =& $this->getModel("lista");
+		if($task == 'cerrar')
+		{
+			$id = JRequest::getCmd('id');
+			$disp = JRequest::getCmd('disp');
+			$model->cerrarIncidencia($id, $disp);
+			$msg = JText::_( 'Incidencia cerrada');
+			$link = JRoute::_('index.php?option=com_incidencias&view=lista', false);
+			$this->setRedirect($link, $msg);
+		}
 	}
 }
 
