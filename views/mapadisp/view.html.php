@@ -49,7 +49,7 @@ class IncidenciasViewMapadisp extends JView
 		for ($i=0; $i < $size ; $i++) { 
 			$text = '';
 			$dispositivo = $this->dispositivos[$i];
-			$text = $dispositivo->idestadoDisp;
+			$text = 1;
 			if($i+1 != $size)
 				$text = $text . ", ";
 			$addtext = $addtext . $text;
