@@ -41,11 +41,26 @@ class IncidenciasModelEstadisticas extends JModel
 				and l.idciudad='$idciudad'
 				and date(e.fecha) <= current_date
 				and date(e.fecha)>=date(CONCAT (year(current_date),'-', month(current_date)-1,'-',day(current_date)))
-				group by  e.fecha, d.idlocalidad
-				order by eguna";
+				group by  eguna, d.idlocalidad
+				order by month(e.fecha) asc, eguna";
 		$db->setQuery((string)$query);
 		$pasosDia = $db->loadObjectList();
 		return $pasosDia;
-	}
+	} 
+	
+	public function getIncidenciasXLocalidadXMes($idciudad)
+	{
+		$db =& JFactory::getDBO();
+		$query ="select l.localidad, count(i.idincidencia) AS 'numInci', monthname(i.fecha) as 'month'
+				from localidad l, incidencia i, dispositivo d, ciudad c
+				where l.idlocalidad = d.idlocalidad
+				and l.idciudad='$idciudad'
+				and i.iddispositivo = d.iddispositivo
+				group by month(i.fecha), l.idlocalidad
+				order by month(i.fecha) asc";
+		$db->setQuery((string)$query);
+		$inciMes = $db->loadObjectList();
+		return $inciMes;
+	} 
 
 }
