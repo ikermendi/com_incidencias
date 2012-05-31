@@ -40,7 +40,7 @@ class IncidenciasModelEstadisticas extends JModel
 				and l.idlocalidad = d.idlocalidad
 				and l.idciudad='$idciudad'
 				and date(e.fecha) <= current_date
-				and date(e.fecha)>=date(CONCAT (year(current_date),'-', month(current_date)-1,'-',day(current_date)))
+				and date(e.fecha)>=date(CONCAT (year(current_date),'-', month(current_date)-1,'-',day(current_date)-1))
 				group by  eguna, d.idlocalidad
 				order by month(e.fecha) asc, eguna";
 		$db->setQuery((string)$query);
@@ -52,7 +52,7 @@ class IncidenciasModelEstadisticas extends JModel
 	{
 		$db =& JFactory::getDBO();
 		$query ="select l.localidad, count(i.idincidencia) AS 'numInci', monthname(i.fecha) as 'month'
-				from localidad l, incidencia i, dispositivo d, ciudad c
+				from localidad l, incidencia i, dispositivo d
 				where l.idlocalidad = d.idlocalidad
 				and l.idciudad='$idciudad'
 				and i.iddispositivo = d.iddispositivo

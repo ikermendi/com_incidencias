@@ -10,10 +10,10 @@ class IncidenciasModelListaDisp extends JModel
 	public function getListaIncidencias($disp) 
 	{
 		$db =& JFactory::getDBO();
-		$query = "SELECT estado, descripcion, fecha, hora 
-						  FROM incidencia, estadoinci
-						  WHERE iddispositivo = $disp
-						  ORDER BY fecha AND estado ASC";
+		$query = "SELECT estado, descripcion, fecha, hora, iddispositivo, idincidencia
+				  FROM estadoinci e, incidencia i
+				  WHERE e.idestado =i.idestadoinci AND i.iddispositivo = $disp
+				  ORDER BY fecha AND estado ASC";
 				
 		$db->setQuery($query);
 		$incidencias = $db->loadObjectList();

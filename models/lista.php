@@ -40,7 +40,7 @@ class IncidenciasModelLista extends JModel
 		
 		if(count($incidencias) == 0) {
 			//Cambiamos el estado del dispositivo
-			$query = "UPDATE dispositivo SET idestadodisp = 2 WHERE iddispositivo = $disp";
+			$query = "UPDATE dispositivo SET idestadodisp = 1 WHERE iddispositivo = $disp";
 			$db->setQuery($query);
 			$db->query();
 		}
