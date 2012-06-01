@@ -36,8 +36,9 @@ class IncidenciasViewMapa extends JView
 		for ($i=0; $i < $size ; $i++) { 
 			$text = '';
 			$dispositivo = $this->dispositivos[$i];
-			$text = "'<h3><a href=index.php?option=com_incidencias&view=listadisp&disp=$dispositivo->iddispositivo>Dispositivo: " . $dispositivo->iddispositivo . "</a></h3>";
-			$text = $text . "Latitud: " . $dispositivo->latitud . "<br>Longitud: " . $dispositivo->longitud . "'";
+			$text = "'<h3><a href=index.php?option=com_incidencias&view=listadisp&disp=$dispositivo->iddispositivo>Historial dispositivo: " . $dispositivo->iddispositivo . "</a></h3>";
+			$text = $text . "Latitud: " . $dispositivo->latitud . "<br>Longitud: " . $dispositivo->longitud;
+			$text = $text . "<br><a href=index.php?option=com_incidencias&view=config&disp=$dispositivo->iddispositivo>Configurar</a>'";
 			if($i+1 != $size)
 				$text = $text . ", ";
 			$addtext = $addtext . $text;

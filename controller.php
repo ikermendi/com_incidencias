@@ -30,6 +30,9 @@ class IncidenciasController extends JController
 			case 'lista':
 				self::lista();
 				break;
+			case 'config':
+				self::config();
+				break;
 			default:
 				break;
 		}
@@ -49,6 +52,31 @@ class IncidenciasController extends JController
 			$model->cerrarIncidencia($id, $disp);
 			$msg = JText::_( 'Incidencia cerrada');
 			$link = JRoute::_('index.php?option=com_incidencias&view=lista', false);
+			$this->setRedirect($link, $msg);
+		}
+	}
+	
+	private function config()
+	{
+		$task = JRequest::getCmd('action', '');
+		$model =& $this->getModel("config");
+		if($task == 'safe')
+		{
+			$time = JRequest::getCmd('time');
+			$id_disp = JRequest::getCmd('disp');
+			$serverip = JRequest::getCmd('serverip');
+			
+			$id = JFactory::getUser()->id;
+			$disp = $model->getDisp($id, $disp);
+			
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, "http://$disp->ip/idek/nodocentral.php?time=$time&serverip=$serverip");
+			curl_exec($ch);
+			curl_close($ch);
+			
+			$model->cambiarDatos($id_disp, $time, $serverip);
+			$msg = JText::_( 'Datos cambiados');
+			$link = JRoute::_("index.php?option=com_incidencias&view=config&disp=$disp", false);
 			$this->setRedirect($link, $msg);
 		}
 	}
