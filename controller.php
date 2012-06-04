@@ -67,16 +67,19 @@ class IncidenciasController extends JController
 			$serverip = JRequest::getCmd('serverip');
 			
 			$id = JFactory::getUser()->id;
-			$disp = $model->getDisp($id, $disp);
+			$disp = $model->getDisp($id, $id_disp);
 			
+			$c_time = urlencode($time);
+			$c_serverip = urlencode($serverip);
+	
 			$ch = curl_init();
-			curl_setopt($ch, CURLOPT_URL, "http://$disp->ip/idek/nodocentral.php?time=$time&serverip=$serverip");
+			curl_setopt($ch, CURLOPT_URL, "http://$disp->ip/idek/nodocentral.php?time=$c_time&serverip=$c_serverip");
 			curl_exec($ch);
 			curl_close($ch);
 			
 			$model->cambiarDatos($id_disp, $time, $serverip);
 			$msg = JText::_( 'Datos cambiados');
-			$link = JRoute::_("index.php?option=com_incidencias&view=config&disp=$disp", false);
+			$link = JRoute::_("index.php?option=com_incidencias&view=config&disp=$id_disp", false);
 			$this->setRedirect($link, $msg);
 		}
 	}
